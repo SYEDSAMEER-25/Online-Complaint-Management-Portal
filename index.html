@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Online Complaint Management Portal">
+  <title>ResolveNow | Online Complaint Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home"><span class="brand-mark">R</span> ResolveNow</a>
+      <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#submit">Submit Complaint</a>
+        <a href="#track">Track Complaint</a>
+        <a href="#dashboard">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR VOICE. OUR ACTION.</p>
+          <h1>Every complaint deserves <span>a resolution.</span></h1>
+          <p class="hero-text">Report an issue, track its progress, and help make your community better. A simple and transparent way to raise concerns.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#submit">Register a Complaint</a>
+            <a class="button button-outline" href="#track">Track Status</a>
+          </div>
+          <div class="trust-line"><span class="check">✓</span> Simple · Transparent · Accessible</div>
+        </div>
+        <div class="hero-card" aria-label="Complaint process illustration">
+          <div class="illustration-icon">✓</div>
+          <p class="card-kicker">COMPLAINT CENTER</p>
+          <h2>We’re here to help.</h2>
+          <p>Submit your concern in a few easy steps.</p>
+          <div class="process-row"><span>01</span><div><strong>Submit</strong><small>Tell us what happened</small></div><b>✓</b></div>
+          <div class="process-row"><span>02</span><div><strong>Track</strong><small>Follow your complaint ID</small></div><b>↗</b></div>
+          <div class="process-row"><span>03</span><div><strong>Resolve</strong><small>Monitor status updates</small></div><b>✓</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat"><span class="stat-icon">▤</span><div><strong id="totalCount">0</strong><small>Total complaints</small></div></div>
+        <div class="stat"><span class="stat-icon">◷</span><div><strong id="pendingCount">0</strong><small>Pending complaints</small></div></div>
+        <div class="stat"><span class="stat-icon">✓</span><div><strong id="resolvedCount">0</strong><small>Resolved complaints</small></div></div>
+      </div>
+    </section>
+
+    <section class="section" id="submit">
+      <div class="container section-grid">
+        <div class="section-intro">
+          <p class="eyebrow">GET STARTED</p>
+          <h2>Register a complaint</h2>
+          <p>Provide a few details so your concern can be recorded. Fields marked with * are required.</p>
+          <div class="info-box"><strong>Before you submit</strong><p>Describe the issue clearly and include the location where it occurred. Save your complaint ID to track it later.</p></div>
+        </div>
+        <form id="complaintForm" class="panel">
+          <div class="form-heading"><h3>Complaint details</h3><span class="required-note">* Required fields</span></div>
+          <div class="form-grid">
+            <label>Full name *<input name="name" type="text" placeholder="Enter your full name" required maxlength="80"></label>
+            <label>Email address *<input name="email" type="email" placeholder="you@example.com" required maxlength="120"></label>
+            <label>Phone number<input name="phone" type="tel" placeholder="Optional phone number" maxlength="20"></label>
+            <label>Complaint category *
+              <select name="category" required>
+                <option value="">Choose a category</option>
+                <option>Electricity</option><option>Water Supply</option><option>Roads and Transport</option>
+                <option>Sanitation and Waste</option><option>Public Safety</option><option>Education</option>
+                <option>Healthcare</option><option>Other</option>
+              </select>
+            </label>
+            <label class="full">Location / Address *<input name="location" type="text" placeholder="Where did the issue occur?" required maxlength="160"></label>
+            <label class="full">Complaint subject *<input name="subject" type="text" placeholder="Briefly describe the issue" required maxlength="120"></label>
+            <label class="full">Detailed description *<textarea name="description" rows="4" placeholder="Explain the problem and any useful details..." required maxlength="1500"></textarea></label>
+          </div>
+          <button class="button button-primary submit-button" type="submit">Submit Complaint <span>→</span></button>
+          <p class="form-note">Demo only: information is stored in this browser using local storage.</p>
+          <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="track">
+      <div class="container track-wrap">
+        <div class="section-intro centered">
+          <p class="eyebrow">STAY INFORMED</p>
+          <h2>Track your complaint</h2>
+          <p>Enter the complaint ID you received after submitting the form.</p>
+        </div>
+        <form id="trackForm" class="track-form">
+          <label class="sr-only" for="trackingId">Complaint ID</label>
+          <input id="trackingId" type="text" placeholder="Example: RN-ABC123" required>
+          <button class="button button-primary" type="submit">Track Complaint</button>
+        </form>
+        <div id="trackResult" class="track-result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard">
+      <div class="container">
+        <div class="dashboard-heading">
+          <div class="section-intro"><p class="eyebrow">OVERVIEW</p><h2>Complaint dashboard</h2><p>View complaints submitted from this browser.</p></div>
+          <div class="dashboard-tools">
+            <label class="sr-only" for="statusFilter">Filter by status</label>
+            <select id="statusFilter"><option value="All">All statuses</option><option>Submitted</option><option>In Progress</option><option>Resolved</option></select>
+            <button id="clearButton" class="button button-outline button-small" type="button">Clear demo data</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Complaint ID</th><th>Subject</th><th>Category</th><th>Date</th><th>Status</th><th>Demo action</th></tr></thead>
+            <tbody id="complaintTable"><tr><td colspan="6" class="empty-state">No complaints yet. Submit a complaint to see it here.</td></tr></tbody>
+          </table>
+        </div>
+        <p class="demo-warning">Demo feature: status changes are simulated by the buttons below. There is no real authority or service team connected to this portal.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner"><a class="brand footer-brand" href="#home"><span class="brand-mark">R</span> ResolveNow</a><p>Online Complaint Management Portal · College project demo</p><a href="#home">Back to top ↑</a></div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
